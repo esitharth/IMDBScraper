@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>IMDB Movies Scrapper</title>
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+    <script type ="text/javascript">
+        function appendColumn() {
+        document.getElementByClassName('Lead').value = 'test display';
+        var tbl = document.getElementByClassName('dataframe'), // table reference
+        i;
+         // open loop for each row and append cell
+          for (i = 0; i < tbl.rows.length; i++) {
+             var cell = createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length), i, 'col');
+             var element = document.createElement("Submit");
+             element.type = "submit";
+             element.name = "poster-submit";
+             element.id = i;
+             cell.appendChild(element);
+            }
+          }
+
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h3 class="text-muted">IMDB Movies Scrapper</h3>
+        </div>
+
+        <div class="jumbotron">
+            <p class="lead"></p>
+            <div class = "input">
+                <form method="POST">
+                     <table style="width:100%">
+                          <tr>
+                            <td>Scrape list of best films as text</td>
+                            <td><input name="list_all" type="submit" value="List"></td>
+                          </tr>
+                          <tr>
+                            <td>Search the list for movie name</td>
+                            <td><input name="search" type="text" placeholder= "Enter the movie name "></td>
+                            <td><input name="search_movie_in_list" type="submit" value="Search"></td>
+                          </tr>
+                          <tr>
+                            <td>Delete a movie from the list</td>
+                            <td><input name="delete" type="text" placeholder= "Enter the movie name"></td>
+                            <td><input name="delete_movie_in_list" type="submit" value="Delete"></td>
+                          </tr>
+                         <tr>
+                            <td>Modify a movie name from the list</td>
+                            <td><input name="modify-old" type="text" placeholder= "Enter the movie name"></td>
+                             <td><input name="modify-new" type="text" placeholder= "Enter the new name"></td>
+                            <td><input name = "modify_movie" type="submit" value="Modify"></td>
+                          </tr>
+                         <tr>
+                             <td>Dump data</td>
+                             <td><input name = "to-json" type="submit" value="JSON"></td>
+                             <td><input name = "to-csv" type="submit" value="CSV"></td>
+                          </tr>
+                        </table>
+                <form method = "POST"  action="/display_posters">
+<!--                <div>Scrape all poster <input name="scrape_all_poster"  type="submit"></div>-->
+                </form>
+<!--        action="/diplay_posters"        <div>Scrape list of current popular film and poster<input name="current_pop_film_with_poster" type="submit"></div>-->
+                </form>
+            </div>
+        </div>
+        <form method = "POST"  >
+            <div style="center" >
+                <table border="1">
+                    <tbody>
+                        <tr>
+                           <th>Movie Name</th>
+                           <th>Poster Link</th>
+                         </tr>
+                    {% for row in table %}
+                        <tr>
+                            <td>{{row.0}}</td>
+                            <td><input  name ="get-poster"  type="submit" value= "{{row.0}}"></input></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+    <!--
+            {{ table|safe }}-->
+            </div>
+        </form>
+        <footer class="footer">
+        </footer>
+
+    </div>
+</body>
+
+</html>
